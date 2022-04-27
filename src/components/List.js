@@ -1,18 +1,17 @@
-import React from 'react'
+import React from 'react';
+
+import MovieCard from './Card';
 
 const List = (props) => {
   return (
-    <div>
-    {props.movies.map((movie,i)=><div  className='image-container d-flex  m-3'style={{display:"flex",justifyContent:'space-around'}}>
-      <img src={movie.Poster} alt="movie" />
-     <div><h3>Title: {movie.Title}</h3>
-      <h3>Genre: {movie.Genre}</h3>
-      <h3>Released :{movie.Released}</h3>
-      </div>
-    </div>)}
-     
-    </div>
+    <div style={{display:"flex",justifyContent:'space-around',flexWrap:'wrap' }}>
+
+    {props.movies.map((movie,i)=><MovieCard movie={movie} key={i} />
+    )}
+</div>
+    
   )
 }
+
 
 export default List

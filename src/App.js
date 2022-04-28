@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import List from './components/List';
 import React,{ useState } from 'react';
 import Add from './components/Add';
+import Search from './components/Search';
 
 
 
@@ -37,17 +38,29 @@ const App =() => {
     Rate:100,
     
   }]);
+  const [searchByValue, setsearchByValue] = useState("");
+const [searchByRate, setsearchByRate] = useState(0)
+  const handleSearchValue = (value) => {setsearchByValue(value)  }
+  const handleSearchByRate = (rate) => {setsearchByRate(rate)  }
   const handleEdit = (id,editedMovie) => { setMovies(movies.map(
     (el)=>el.Id==id ? {...el,...editedMovie}:el
   )) }
+  
 
  
   const AddMovie = (movie) => { setMovies([...movies,movie]) }
   return (
     <div className="container-fluid movie-app">
-      <div className='row'><List movies={movies} handleEdit={handleEdit}/>
+      <div className='row'>
+        <Search handleSearchValue={handleSearchValue} handleSearchByRate={handleSearchByRate} 
+       searchByRate={searchByRate} />
+        <List movies={movies.filter(
+          (el)=>el.Title.toLowerCase().includes(searchByValue.trim().toLowerCase())
+          &&el.Rate>=searchByRate
+        )} handleEdit={handleEdit}/>
     
       <Add addedMovie={AddMovie}/>
+      
       
       </div>
       

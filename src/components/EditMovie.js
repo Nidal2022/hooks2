@@ -1,44 +1,39 @@
-import {React,useState} from 'react'
-import { Button,Form,Modal } from 'react-bootstrap';
-import { Rating } from 'react-simple-star-rating';
+import React, { useState } from 'react'
+import { Button, Form, Modal } from 'react-bootstrap'
+import { Rating } from 'react-simple-star-rating'
 
-const Add = ({addedMovie}) => {
-  const [name,setName]=useState("");
-  const [genre, setGenre] = useState("");
-  const [date, setDate] = useState("");
-  const [rating, setRating] = useState(0);
-  const [Poster,setPoster]=useState("");
+export const EditMovie = ({handleEdit,movie}) => {
+    const [name,setName]=useState(movie.Title);
+    const [genre, setGenre] = useState(movie.Genre);
+  const [date, setDate] = useState(movie.Released);
+  const [rating, setRating] = useState(movie.Rate);
+  const [Poster,setPoster]=useState(movie.Poster);
   const handleRating = (rate) => {
     setRating(rate)
     // other logic
   }
-  const [show, setShow] = useState(false);
+  const handleSubmit = (e) => {e.preventDefault()
+    handleEdit(movie.Id,{Title:name,Genre:genre,Released:date,Rate:rating,Poster,Id:Math.random()})
+   
+    handleClose() }
+    const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-const handleSubmit = (e) => {e.preventDefault()
-   addedMovie({Title:name,Genre:genre,Released:date,Rate:rating,Poster,Id:Math.random()})
-   setName("");
-   setGenre("");
-   setDate("");
-   setPoster("");
-   setRating(0);
-   handleClose() }
-
   return (
     <>
     <Button variant="primary" onClick={handleShow}>
-      Add Movie
+      Edit Movie
     </Button>
 
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Add Movie</Modal.Title>
+        <Modal.Title>Edit Movie</Modal.Title>
       </Modal.Header>
       <Modal.Body>
       <Form onSubmit={handleSubmit}>
 
-  <Form.Group className="mb-3" controlId="formBasicEmail">
+      <Form.Group className="mb-3" controlId="formBasicEmail">
     <Form.Label>Name</Form.Label>
     <Form.Control type="text" placeholder="Movie Name" onChange={(e)=> setName(e.target.value) }value={name} required />
     </Form.Group>
@@ -75,8 +70,6 @@ const handleSubmit = (e) => {e.preventDefault()
         
       </Modal.Footer>
     </Modal>
-  </>
-  );
+    </>
+  )
 }
-
-export default Add

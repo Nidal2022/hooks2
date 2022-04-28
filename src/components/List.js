@@ -6,7 +6,7 @@ const List = (props) => {
   return (
     <div style={{display:"flex",justifyContent:'space-around',flexWrap:'wrap' }}>
 
-    {props.movies.map((movie,i)=><MovieCard movie={movie} key={i} />
+    {props.movies.map((movie,i)=><MovieCard movie={movie} key={i} handleEdit={props.handleEdit}/>
     )}
 </div>
     

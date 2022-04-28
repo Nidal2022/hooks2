@@ -6,8 +6,10 @@ import React,{ useState } from 'react';
 import Add from './components/Add';
 
 
+
 const App =() => {
   const [movies, setMovies] = useState([{
+    Id:Math.random(),
     Title:'Guardians of the Galaxy Vol. 2',
     
     Released:'05 May 2017',
@@ -17,6 +19,7 @@ const App =() => {
     
   },
   {
+    Id:Math.random(),
     Title:'Hitman',
    
     Released:'11 mars 2016',
@@ -26,6 +29,7 @@ const App =() => {
     
   },
   {
+    Id:Math.random(),
     Title:'John Wick',
     Released:'19 September 2014',
     Genre:'Action, Police, Thriller',
@@ -33,13 +37,18 @@ const App =() => {
     Rate:100,
     
   }]);
+  const handleEdit = (id,editedMovie) => { setMovies(movies.map(
+    (el)=>el.Id==id ? {...el,...editedMovie}:el
+  )) }
+
  
   const AddMovie = (movie) => { setMovies([...movies,movie]) }
   return (
     <div className="container-fluid movie-app">
-      <div className='row'><List movies={movies}/>
+      <div className='row'><List movies={movies} handleEdit={handleEdit}/>
     
       <Add addedMovie={AddMovie}/>
+      
       </div>
       
     </div>
